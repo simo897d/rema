@@ -47,7 +47,7 @@ namespace rema.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutSupplier(int id, Supplier supplier)
         {
-            if (id != supplier.ID)
+            if (id != supplier.SupplierID)
             {
                 return BadRequest();
             }
@@ -81,7 +81,7 @@ namespace rema.Controllers
             _context.Supplier.Add(supplier);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetSupplier", new { id = supplier.ID }, supplier);
+            return CreatedAtAction("GetSupplier", new { id = supplier.SupplierID }, supplier);
         }
 
         // DELETE: api/Suppliers/5
@@ -102,7 +102,7 @@ namespace rema.Controllers
 
         private bool SupplierExists(int id)
         {
-            return _context.Supplier.Any(e => e.ID == id);
+            return _context.Supplier.Any(e => e.SupplierID == id);
         }
     }
 }

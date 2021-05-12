@@ -9,15 +9,16 @@ namespace rema.Data
 {
     public class remaContext : DbContext
     {
-        public remaContext (DbContextOptions<remaContext> options)
+        public remaContext(DbContextOptions<remaContext> options)
             : base(options)
         {
         }
 
-        public DbSet<rema.Models.Product> Product { get; set; }
+        public DbSet<Product> Product { get; set; }
 
-        public DbSet<rema.Models.Category> Category { get; set; }
+        public DbSet<Category> Category { get; set; }
 
-        public DbSet<rema.Models.Supplier> Supplier { get; set; }
+        public DbSet<Supplier> Supplier { get; set; }
+
     }
 }

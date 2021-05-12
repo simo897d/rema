@@ -47,7 +47,7 @@ namespace rema.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutCategory(int id, Category category)
         {
-            if (id != category.ID)
+            if (id != category.CategoryID)
             {
                 return BadRequest();
             }
@@ -81,7 +81,7 @@ namespace rema.Controllers
             _context.Category.Add(category);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetCategory", new { id = category.ID }, category);
+            return CreatedAtAction("GetCategory", new { id = category.CategoryID }, category);
         }
 
         // DELETE: api/Categories/5
@@ -102,7 +102,7 @@ namespace rema.Controllers
 
         private bool CategoryExists(int id)
         {
-            return _context.Category.Any(e => e.ID == id);
+            return _context.Category.Any(e => e.CategoryID == id);
         }
     }
 }
