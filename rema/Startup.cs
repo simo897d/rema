@@ -13,6 +13,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using rema.Data;
+using AutoMapper;
+using rema.Models;
+using rema.DTO;
 
 namespace rema
 {
@@ -34,6 +37,13 @@ namespace rema
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "rema", Version = "v1" });
             });
+            var configuration = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<CategoryPOSTDTO, Category>();
+
+            });
+            IMapper mapper = configuration.CreateMapper();
+            services.AddSingleton(mapper);
 
             services.AddDbContext<remaContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("remaContext")));

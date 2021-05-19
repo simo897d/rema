@@ -109,13 +109,13 @@ namespace rema.Migrations
             modelBuilder.Entity("rema.Models.Product", b =>
                 {
                     b.HasOne("rema.Models.Category", "Category")
-                        .WithMany("Products")
+                        .WithMany()
                         .HasForeignKey("CategoryID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("rema.Models.Supplier", "Supplier")
-                        .WithMany("Products")
+                        .WithMany()
                         .HasForeignKey("SupplierID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -123,16 +123,6 @@ namespace rema.Migrations
                     b.Navigation("Category");
 
                     b.Navigation("Supplier");
-                });
-
-            modelBuilder.Entity("rema.Models.Category", b =>
-                {
-                    b.Navigation("Products");
-                });
-
-            modelBuilder.Entity("rema.Models.Supplier", b =>
-                {
-                    b.Navigation("Products");
                 });
 #pragma warning restore 612, 618
         }

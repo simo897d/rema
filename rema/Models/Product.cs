@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Newtonsoft.Json;
 
 namespace rema.Models
 {
@@ -15,9 +16,11 @@ namespace rema.Models
         public string Description { get; set; }
         public int Units { get; set; }
         public int Quantity { get; set; }
-        [ForeignKey("Category")]
         public int CategoryID { get; set; }
+
+        [ForeignKey("CategoryID")]
         public Category Category { get; set; }
+
         public float Price { get; set; }
         public int Stock { get; set; }
         public int SupplierID { get; set; }

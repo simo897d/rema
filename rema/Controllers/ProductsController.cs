@@ -25,7 +25,13 @@ namespace rema.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Product>>> GetProduct()
         {
-            return await _context.Product.ToListAsync();
+            var products = await _context.Product.ToListAsync();
+            foreach (var item in products)
+            {
+                var category = _context.Category.Where(c => c.CategoryID == item.CategoryID).SingleOrDefault();
+                item.Category.Names = category.Names;
+            }
+            return products;
         }
 
         // GET: api/Products/5
@@ -38,7 +44,8 @@ namespace rema.Controllers
             {
                 return NotFound();
             }
-
+            
+           
             return product;
         }
 

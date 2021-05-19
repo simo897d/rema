@@ -2,7 +2,7 @@
 
 namespace rema.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -10,21 +10,21 @@ namespace rema.Migrations
                 name: "Category",
                 columns: table => new
                 {
-                    ID = table.Column<int>(type: "int", nullable: false)
+                    CategoryID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Names = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Category", x => x.ID);
+                    table.PrimaryKey("PK_Category", x => x.CategoryID);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Supplier",
                 columns: table => new
                 {
-                    ID = table.Column<int>(type: "int", nullable: false)
+                    SupplierID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -35,45 +35,45 @@ namespace rema.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Supplier", x => x.ID);
+                    table.PrimaryKey("PK_Supplier", x => x.SupplierID);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Product",
                 columns: table => new
                 {
-                    ID = table.Column<int>(type: "int", nullable: false)
+                    ProductID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Units = table.Column<int>(type: "int", nullable: false),
                     Quantity = table.Column<int>(type: "int", nullable: false),
-                    categoryID = table.Column<int>(type: "int", nullable: true),
+                    CategoryID = table.Column<int>(type: "int", nullable: false),
                     Price = table.Column<float>(type: "real", nullable: false),
                     Stock = table.Column<int>(type: "int", nullable: false),
-                    SupplierID = table.Column<int>(type: "int", nullable: true)
+                    SupplierID = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Product", x => x.ID);
+                    table.PrimaryKey("PK_Product", x => x.ProductID);
                     table.ForeignKey(
-                        name: "FK_Product_Category_categoryID",
-                        column: x => x.categoryID,
+                        name: "FK_Product_Category_CategoryID",
+                        column: x => x.CategoryID,
                         principalTable: "Category",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "CategoryID",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Product_Supplier_SupplierID",
                         column: x => x.SupplierID,
                         principalTable: "Supplier",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "SupplierID",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Product_categoryID",
+                name: "IX_Product_CategoryID",
                 table: "Product",
-                column: "categoryID");
+                column: "CategoryID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Product_SupplierID",

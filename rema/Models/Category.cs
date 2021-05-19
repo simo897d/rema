@@ -9,7 +9,5 @@ namespace rema.Models
         public int CategoryID { get; set; }
         public string Names { get; set; }
         public string Description { get; set; }
-
-        public List<Product> Products { get; set; }
     }
 }

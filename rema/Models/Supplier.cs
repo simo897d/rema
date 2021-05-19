@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace rema.Models
 {
@@ -7,10 +8,9 @@ namespace rema.Models
         public int SupplierID { get; set; }
         public string Name { get; set; }
         public string Address { get; set; }
-        public int Zip { get; set; }
+        public string Zip { get; set; }
         public string ContactPerson { get; set; }
         public string Email { get; set; }
-        public int PhoneNumber { get; set; }
-        public List<Product> Products { get; set; }
+        public string PhoneNumber { get; set; }
     }
 }

@@ -9,8 +9,8 @@ using rema.Data;
 namespace rema.Migrations
 {
     [DbContext(typeof(remaContext))]
-    [Migration("20210512094045_Maybe7")]
-    partial class Maybe7
+    [Migration("20210512144416_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

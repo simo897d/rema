@@ -2,7 +2,7 @@
 
 namespace rema.Migrations
 {
-    public partial class AddedFKey2 : Migration
+    public partial class simplify : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

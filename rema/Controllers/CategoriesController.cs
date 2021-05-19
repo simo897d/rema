@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using rema.Data;
+using rema.DTO;
 using rema.Models;
 
 namespace rema.Controllers
@@ -15,9 +17,11 @@ namespace rema.Controllers
     public class CategoriesController : ControllerBase
     {
         private readonly remaContext _context;
+        private readonly IMapper _mapper;
 
-        public CategoriesController(remaContext context)
+        public CategoriesController(remaContext context, IMapper mapper)
         {
+            _mapper = mapper;
             _context = context;
         }
 
@@ -42,6 +46,19 @@ namespace rema.Controllers
             return category;
         }
 
+        [HttpGet("{id}/GetAllProducts")]
+        public async Task<ActionResult<List<Product>>> GetAllProducts(int id)
+        {
+            var products = await _context.Product.Where(p => p.CategoryID == id).ToListAsync();
+
+            if (products == null)
+            {
+                return NotFound();
+            }
+
+            return products;
+        }
+      
         // PUT: api/Categories/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
@@ -76,12 +93,13 @@ namespace rema.Controllers
         // POST: api/Categories
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Category>> PostCategory(Category category)
+        public async Task<ActionResult<CategoryPOSTDTO>> PostCategory(CategoryPOSTDTO categoryPostDTO)
         {
+            var category = _mapper.Map<CategoryPOSTDTO, Category>(categoryPostDTO);
             _context.Category.Add(category);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetCategory", new { id = category.CategoryID }, category);
+            return CreatedAtAction("GetCategory", new { id = category.CategoryID }, categoryPostDTO);
         }
 
         // DELETE: api/Categories/5
