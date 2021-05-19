@@ -18,6 +18,7 @@ namespace rema
             IHost host = CreateHostBuilder(args).Build();
 
             SeedDbIfEmpty(host);
+            host.Run();
         }
 
         private static void SeedDbIfEmpty(IHost host)
